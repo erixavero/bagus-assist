@@ -6,8 +6,6 @@ using namespace std;
 
 class Randomizer{
 	
-	srand(unsigned seed= time(0));
-	int randomNum=rand();
 	int a;
 	int b;
 	int x;
@@ -15,22 +13,39 @@ class Randomizer{
 
 public: 
 	int setA(){
-	this->a= randomNum%900+536;
+	this->a= rand()%900+536;
 	return a;
 	}
+	
+	int getA(){
+		return a;
+	}
+	
 	int setB(){
-	this->b= randomNum%900+284;
+	this->b= rand()%900+284;
 	return b;
 	}
 	
+	int getB(){
+		return b;
+	}
+	
 	int setX(){
-	this->x= randomNum%861+49;
+	this->x= rand()%861+49;
 	return x;
 	}
 	
+	int getX(){
+		return x;
+	}
+	
 	int setY(){
-	this->y= randomNum%617+70;
+	this->y= rand()%617+70;
 	return y;
+	}
+	
+	int getY(){
+		return y;
 	}
 };
 
@@ -40,7 +55,7 @@ class Score{
 public:
 	void scoreCount(int c, int answer){
 		if(c == answer)
-			score++;
+			this->score = score+1;
 	}
 	
 	int scorePrint(){
@@ -75,8 +90,8 @@ void Math::mathPlus(){
 	for(int i=0; i<session; i++)
 	{
 	int c= num.setA()+num.setB();
-	if(num.setA()<1000){cout<<" ";} cout<< num.setA() <<endl;
-	if(num.setB()<1000){cout<<" ";}cout<< num.setB() <<endl;
+	if(num.getA()<1000){cout<<" ";}cout<< num.getA() <<endl;
+	if(num.getB()<1000){cout<<" ";}cout<< num.getB() <<endl;
 	cout<<"----- +" <<endl; 
 	cin>> answer;
 	
@@ -101,93 +116,120 @@ void Math::mathPlus(){
 	mathChoice();
 }
 
-/*
+
 void Math::mathMinus(){
 	
-	int c= a-b;
-	if(a<1000){cout<<" ";} cout<< a <<endl;
-	if(b<1000){cout<<" ";}cout<< b <<endl;
+	Randomizer num;
+	Score count;
+
+	do{
+	cout<<"How many sessions? (max 5) "; cin>>session;
+	}while(session<0 || session>5);
+	
+	for(int i=0; i<session; i++)
+	{
+	int c= num.setA()+num.setB();
+	if(num.getA()<1000){cout<<" ";}cout<< num.getA() <<endl;
+	if(num.getB()<1000){cout<<" ";}cout<< num.getB() <<endl;
 	cout<<"----- -" <<endl; 
 	cin>> answer;
 	
-//	count.scoreCount(c, answer);
-//	cout<<"Your score: " <<count.scorePrint() <<endl;
+	count.scoreCount(c, answer);
+	cout<<"Your score: " <<count.scorePrint() <<endl;
 	
 	if (answer==c){
 		cout<<"EASY AIN'T IT?" <<endl;
 	}
-	else if (answer==c && a%3==0){
+	else if (answer==c && num.setA()%3==0){
 		cout<<"EVERYTHING MAKES SENSE NOW!" <<endl;
 	}
-	else if (answer==c && a%7==0){
+	else if (answer==c && num.setA()%2==0){
 		cout<<"I KNOW THIS ISN'T YOUR FIRST TIME!" <<endl;
 	}
-	else if (answer!=c && a%3==0){
+	else if (answer!=c && num.setB()%3==0){
 		cout<<"AND I THOUGHT MY JOKES WERE BAD! THE ANSWER IS " << c <<endl;
 	}
 	else{cout<< "YOUR MATH TEACHERS ARE ASHAMED! THE ANSWER IS " << c <<endl;
 	}
 	mathChoice();
 }
-
+}
 
 void Math::mathMulti(){
 	
-	int c= x*y;
-	if(x<100){cout<<" ";} cout<< x <<endl;
-	if(y<100){cout<<" ";}cout<< y <<endl;
+	Randomizer num;
+	Score count;
+
+	do{
+	cout<<"How many sessions? (max 5) "; cin>>session;
+	}while(session<0 || session>5);
+	
+	for(int i=0; i<session; i++)
+	{
+	int c= num.setX()+num.setY();
+	if(num.getX()<1000){cout<<" ";}cout<< num.getX() <<endl;
+	if(num.getY()<1000){cout<<" ";}cout<< num.getY() <<endl;
 	cout<<"----- x" <<endl; 
 	cin>> answer;
 	
-//	count.scoreCount(c, answer);
-//	cout<<"Your score: " <<count.scorePrint() <<endl;
+	count.scoreCount(c, answer);
+	cout<<"Your score: " <<count.scorePrint() <<endl;
 	
 	if (answer==c){
 		cout<<"YOUR LIFE HAS MEANING AGAIN!" <<endl;
 	}
-	else if (answer==c && x%5==0){
+	else if (answer==c && num.setX()%5==0){
 		cout<<"*SLOW CLAP*" <<endl;
 	}
-	else if (answer==c && c%3==0){
+	else if (answer==c && num.setY()%3==0){
 		cout<<"YOU'RE THE MAN(OR WOMAN, IT DEPENDS) NOW!" <<endl;
 	}
-	else if (answer!=c && y%3==0){
+	else if (answer!=c && num.setX()%3==0){
 		cout<<"YOU WANT ROASTS WITH THAT? THE ANSWER IS " << c <<endl;
 	}
 	else{cout<< "MAYBE YOU PREFER CARD GAME? THE ANSWER IS " << c <<endl;
 	}
 	mathChoice();
 }
+}
 
 void Math::mathDivid(){
-	int c= y/x;
-	if(y<100){cout<<" ";} cout<< y <<endl;
+
+	Randomizer num;
+	Score count;
+	
+	do{
+	cout<<"How many sessions? (max 5) "; cin>>session;
+	}while(session<0 || session>5);
+
+	int c= num.setY()/num.setX();
+	if(num.getY()<100){cout<<" ";} cout<<num.getY() <<endl;
 	cout<<"-----" <<endl; 
-	if(x<100){cout<<" ";}cout<< x <<endl
+	if(num.getX()<100){cout<<" ";}cout<<num.getX() <<endl
 	<<"= ";
 	
 	cin>> answer;
 	
-//	count.scoreCount(c, answer);
-//	cout<<"Your score: " <<count.scorePrint() <<endl;
+	count.scoreCount(c, answer);
+	cout<<"Your score: " <<count.scorePrint() <<endl;
 	
 	if (answer==c){
 		cout<<"YOUR BRAIN HAS EVOLVED!" <<endl;
 	}
-	else if (answer==c && x%5==0){
+	else if (answer==c && num.setX()%5==0){
 		cout<<"YOU GOT THE TOUCH!" <<endl;
 	}
-	else if (answer==c && c%9==0){
+	else if (answer==c && c%2==0){
 		cout<<"ARE YOU STILL SINGLE?" <<endl;
 	}
-	else if (answer!=c && x%5==0){
+	else if (answer!=c && num.setY()%5==0){
 		cout<<"MY BUM IS ITCHY... THE ANSWER IS " << c <<endl;
 	}
 	else{cout<< "HELLO DARKNESS, MY OLD FRIEND. THE ANSWER IS " << c <<endl;
 	}
 	mathChoice();
 }
-*/
+
 void mathChoice(){
 	
 	Math game;
@@ -198,14 +240,16 @@ void mathChoice(){
 	cout<<"Make a choice: "; cin>>problem;
 	switch(problem){
 		case 1 : game.mathPlus();break;
-//		case 2 : game.mathMinus();break;
-//		case 3 : game.mathMulti();break;
-//		case 4 : game.mathDivid();break;
+		case 2 : game.mathMinus();break;
+		case 3 : game.mathMulti();break;
+		case 4 : game.mathDivid();break;
 	}
 
 }
 
 int main(){
+	
+	srand(time(0));
 	
 	mathChoice();
 	
